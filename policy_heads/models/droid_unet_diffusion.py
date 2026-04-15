@@ -10,9 +10,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 # requires diffusers==0.11.1
-from diffusers.schedulers.scheduling_ddpm import DDPMScheduler
-from diffusers.schedulers.scheduling_ddim import DDIMScheduler
-from diffusers.training_utils import EMAModel
+# from diffusers.schedulers.scheduling_ddpm import DDPMScheduler
+# from diffusers.schedulers.scheduling_ddim import DDIMScheduler
+# from diffusers.training_utils import EMAModel
 
 
 # =================== UNet for Diffusion ==============
@@ -177,7 +177,7 @@ class ConditionalUnet1D(nn.Module):
         super().__init__()
         all_dims = [input_dim] + list(down_dims)
         start_dim = down_dims[0]
-
+        
         self.global_1d_pool = nn.AdaptiveAvgPool1d(1)
         self.norm_after_pool = nn.LayerNorm(global_cond_dim)
         self.combine = nn.Linear(global_cond_dim + state_dim, global_cond_dim)

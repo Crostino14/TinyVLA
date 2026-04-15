@@ -191,6 +191,7 @@ class LLaVAPythiaTrainer(Trainer):
             "persistent_workers": self.args.dataloader_persistent_workers,
         }
         from transformers.trainer_utils import seed_worker
+        print(f"Using drop last set to {self.args.dataloader_drop_last} for training dataloader.")
         if not isinstance(train_dataset, torch.utils.data.IterableDataset):
             dataloader_params["sampler"] = CustomBatchSampler(**self.sampler_params['train'], eval=False)
             dataloader_params["drop_last"] = self.args.dataloader_drop_last
@@ -213,7 +214,7 @@ class LLaVAPythiaTrainer(Trainer):
             "pin_memory": self.args.dataloader_pin_memory,
             "persistent_workers": self.args.dataloader_persistent_workers,
         }
-
+        print(f"Using drop last set to {self.args.dataloader_drop_last} for eval dataloader.")
         if not isinstance(eval_dataset, torch.utils.data.IterableDataset):
             dataloader_params["sampler"] = CustomBatchSampler(**self.sampler_params['eval'], eval=True)
             dataloader_params["drop_last"] = self.args.dataloader_drop_last

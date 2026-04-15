@@ -12,6 +12,8 @@ import torchvision.transforms as transforms
 import IPython
 from data_utils.processor import preprocess, preprocess_multimodal
 import copy
+import random
+import json
 e = IPython.embed
 
 def flatten_list(l):
@@ -65,7 +67,7 @@ class EpisodicDataset(torch.utils.data.Dataset):
             self.augment_images = False
         self.transformations = None
         a = self.__getitem__(0) # initialize self.is_sim and self.transformations
-        if len(a['image_top'].shape) == 4:
+        if len(a['image'].shape) == 4:
             print("%"*40)
             print("There are three views: left, right, top")
         # is_sim indicates whether the data comes from a simulation environment.
@@ -113,7 +115,7 @@ class EpisodicDataset(torch.utils.data.Dataset):
             # qvel represents the robot's velocity (e.g., joint velocities) at the same timestamp.
             # get observation at start_ts only
             qpos = root['/observations/qpos'][start_ts]
-            qvel = root['/observations/qvel'][start_ts]
+            # qvel = root['/observations/qvel'][start_ts]
             image_dict = dict()
             for cam_name in self.camera_names:
                 image_dict[cam_name] = root[f'/observations/images/{cam_name}'][start_ts]
@@ -168,8 +170,8 @@ class EpisodicDataset(torch.utils.data.Dataset):
             self.transformations = [
                 transforms.RandomCrop(size=[int(original_size[0] * ratio), int(original_size[1] * ratio)]),
                 transforms.Resize(original_size, antialias=True),
-                transforms.RandomRotation(degrees=[-5.0, 5.0], expand=False),
-                transforms.ColorJitter(brightness=0.3, contrast=0.4, saturation=0.5) #, hue=0.08)
+                # transforms.RandomRotation(degrees=[-5.0, 5.0], expand=False),
+                # transforms.ColorJitter(brightness=0.3, contrast=0.4, saturation=0.5) #, hue=0.08)
             ]
 
         if self.augment_images:
@@ -181,7 +183,7 @@ class EpisodicDataset(torch.utils.data.Dataset):
 
         if 'diffusion' in self.policy_class: # for diffusion
             # normalize to [-1, 1]
-            action_data = ((action_data - self.norm_stats["action_min"]) / (self.norm_stats["action_max"] - self.norm_stats["action_min"])) * 2 - 1
+            action_data = (((action_data - self.norm_stats["action_min"]) / (self.norm_stats["action_max"] - self.norm_stats["action_min"])) * 2) - 1
         else: # for act
             # normalize to mean 0 std 1
             action_data = (action_data - self.norm_stats["action_mean"]) / self.norm_stats["action_std"]
@@ -197,7 +199,9 @@ class EpisodicDataset(torch.utils.data.Dataset):
             'raw_lang': raw_lang
         }
         assert raw_lang is not None, ""
-        return self.llava_pythia_process.forward_process(sample)
+        data_dict = self.llava_pythia_process.forward_process(sample)
+        
+        return data_dict
         # print(image_data.dtype, qpos_data.dtype, action_data.dtype, is_pad.dtype)
 
 
@@ -238,7 +242,10 @@ class LlavaPythiaProcess:
                 return expanded_imgs
 
             image = expand2square_batch_numpy(image, tuple(x for x in self.processor.image_mean))
-            image = self.processor.preprocess(image, return_tensors='pt', do_normalize=True, do_rescale=False,
+            image = self.processor.preprocess(image, 
+                                              return_tensors='pt', 
+                                              do_normalize=True, 
+                                              do_rescale=False,
                                               do_center_crop=False)['pixel_values']   # B C H W
         else:
             image = self.processor.preprocess(image, return_tensors='pt', do_normalize=True, do_rescale=False,
@@ -336,7 +343,7 @@ def get_norm_stats(dataset_path_list):
         try:
             with h5py.File(dataset_path, 'r') as root:
                 qpos = root['/observations/qpos'][()]
-                qvel = root['/observations/qvel'][()]
+                # qvel = root['/observations/qvel'][()]
                 action = root['/action'][()]
         except Exception as e:
             print(f'Error loading {dataset_path} in get_norm_stats')
@@ -366,6 +373,9 @@ def get_norm_stats(dataset_path_list):
              "action_min": action_min.numpy() - eps,"action_max": action_max.numpy() + eps,
              "qpos_mean": qpos_mean.numpy(), "qpos_std": qpos_std.numpy(),
              "example_qpos": qpos}
+
+    # with open("dataset_stats.json", "w") as f:
+    #     json.dump(stats, f)
 
     return stats, all_episode_len
 
@@ -549,5 +559,19 @@ def detach_dict(d):
     return new_d
 
 def set_seed(seed):
+    # torch.manual_seed(seed)
+    # np.random.seed(seed)
+
+    """
+    Set random seed for all random number generators for reproducibility.
+
+    Args:
+        seed: The random seed to use
+    """
     torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    os.environ["PYTHONHASHSEED"] = str(seed)

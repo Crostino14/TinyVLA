@@ -1,0 +1,13 @@
+{
+    "dataset_dir": "/home/rsofnc000/Multi-Task-LFD-Framework/repo/open_x_embodiment/datasets/ur5e_pick_place_only_0_4_8_12",
+    "name": "ur5e_pick_place_only_0_4_8_12",
+    "cam_height": 224,
+    "cam_width": 224,
+    "state_dim": 8,
+    "action_dim": 10,
+    "cam_keys": [
+        "camera_front_image",
+        "camera_gripper_image"
+    ],
+    "command_key": ""
+}

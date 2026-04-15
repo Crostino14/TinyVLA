@@ -1,0 +1,1245 @@
+{
+  "metadata": {
+    "suite": "libero_goal",
+    "generator": "libero_spatial_benchmark_gen.py",
+    "nearby_dist_max_m": 0.65,
+    "frames": {
+      "world": "MuJoCo world frame: x=right, y=forward(robot), z=up",
+      "camera": "frontview camera frame (fallback: agentview): u=img_right, v=cam_up(behind+), z=world_up"
+    }
+  },
+  "tasks": [
+    {
+      "task_id": 0,
+      "task_name": "open_the_middle_drawer_of_the_cabinet",
+      "first_frame_path": "/mnt/beegfs/a.cardamone7/outputs/vqa_test/frames/task00_first_frame.png",
+      "first_frame_source": "agentview_fallback",
+      "wrist_frame_path": "/mnt/beegfs/a.cardamone7/outputs/vqa_test/frames/task00_wrist_frame.png",
+      "objects_in_scene": [
+        "bowl",
+        "cream cheese",
+        "flat stove",
+        "plate",
+        "wine bottle",
+        "wine rack",
+        "wooden cabinet"
+      ],
+      "nearby_pairs_used": [
+        {
+          "a": "bowl",
+          "b": "cream cheese",
+          "dist_m": 0.1289
+        },
+        {
+          "a": "bowl",
+          "b": "wine bottle",
+          "dist_m": 0.1308
+        },
+        {
+          "a": "bowl",
+          "b": "plate",
+          "dist_m": 0.1538
+        },
+        {
+          "a": "cream cheese",
+          "b": "plate",
+          "dist_m": 0.1821
+        },
+        {
+          "a": "wine bottle",
+          "b": "wine rack",
+          "dist_m": 0.2172
+        },
+        {
+          "a": "cream cheese",
+          "b": "wine bottle",
+          "dist_m": 0.2264
+        }
+      ],
+      "questions": [
+        {
+          "question_id": "task0_q_listing_v01",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "LIST ONLY the objects that are present in the provided image. Do NOT describe positions or anything else.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v02",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Name all visible objects in the image, and output only object names separated by commas.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v03",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Provide a complete object list for this image. Return only object names.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v04",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Which objects are present in this scene? Answer with only object names, comma-separated.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v05",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Enumerate every object you can see in the image. Do not add explanations.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v06",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Output the set of objects visible in the image. Only object names are allowed.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v07",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "List all objects currently visible in this robotic scene. No descriptions, only names.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v08",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Identify all present objects in the image and respond only with their names.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v09",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Return a comma-separated list of the objects visible in the image. Nothing else.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q_listing_v10",
+          "type": "type0_object_listing",
+          "frame": "camera",
+          "filled_prompt": "Report all objects present in the image, using object names only and no extra text.",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": [
+                "bowl",
+                "cream cheese",
+                "plate",
+                "stove",
+                "wine bottle",
+                "wine rack",
+                "wooden cabinet"
+              ],
+              "expected_object_variants": {
+                "stove": [
+                  "flat stove"
+                ],
+                "flat stove": [
+                  "stove"
+                ]
+              },
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is behind the cream cheese",
+              "keywords": [
+                "behind",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the cream cheese",
+                "behind cream cheese",
+                "the bowl is behind the cream cheese"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "bowl",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is in front of the bowl",
+              "keywords": [
+                "in front of",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the bowl",
+                "in front of bowl",
+                "the cream cheese is in front of the bowl"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "cream cheese",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is behind the cream cheese? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is right of the cream cheese",
+              "keywords": [
+                "right of",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "right of the cream cheese",
+                "right of cream cheese",
+                "the bowl is right of the cream cheese"
+              ],
+              "_exact_relation": "right of",
+              "_obj_a": "bowl",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is left of the bowl",
+              "keywords": [
+                "left of",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "left of the bowl",
+                "left of bowl",
+                "the cream cheese is left of the bowl"
+              ],
+              "_exact_relation": "left of",
+              "_obj_a": "cream cheese",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q0_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is right of the cream cheese? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "right of the cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is right of the wine bottle",
+              "keywords": [
+                "right of",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "right of the wine bottle",
+                "right of wine bottle",
+                "the bowl is right of the wine bottle"
+              ],
+              "_exact_relation": "right of",
+              "_obj_a": "bowl",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is left of the bowl",
+              "keywords": [
+                "left of",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "left of the bowl",
+                "left of bowl",
+                "the wine bottle is left of the bowl"
+              ],
+              "_exact_relation": "left of",
+              "_obj_a": "wine bottle",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is right of the wine bottle? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "right of the wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is behind the wine bottle",
+              "keywords": [
+                "behind",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the wine bottle",
+                "behind wine bottle",
+                "the bowl is behind the wine bottle"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "bowl",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is in front of the bowl",
+              "keywords": [
+                "in front of",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the bowl",
+                "in front of bowl",
+                "the wine bottle is in front of the bowl"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "wine bottle",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q1_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is behind the wine bottle? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to plate? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is left of the plate",
+              "keywords": [
+                "left of",
+                "plate"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "left of the plate",
+                "left of plate",
+                "the bowl is left of the plate"
+              ],
+              "_exact_relation": "left of",
+              "_obj_a": "bowl",
+              "_obj_b": "plate"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of plate with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is right of the bowl",
+              "keywords": [
+                "right of",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "right of the bowl",
+                "right of bowl",
+                "the plate is right of the bowl"
+              ],
+              "_exact_relation": "right of",
+              "_obj_a": "plate",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is left of the plate? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "left of the plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of bowl with respect to plate? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": "plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is in front of the plate",
+              "keywords": [
+                "in front of",
+                "plate"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the plate",
+                "in front of plate",
+                "the bowl is in front of the plate"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "bowl",
+              "_obj_b": "plate"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of plate with respect to bowl? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": "bowl",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is behind the bowl",
+              "keywords": [
+                "behind",
+                "bowl"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the bowl",
+                "behind bowl",
+                "the plate is behind the bowl"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "plate",
+              "_obj_b": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q2_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is in front of the plate? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "bowl"
+              ],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to plate? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is in front of the plate",
+              "keywords": [
+                "in front of",
+                "plate"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the plate",
+                "in front of plate",
+                "the cream cheese is in front of the plate"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "cream cheese",
+              "_obj_b": "plate"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of plate with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is behind the cream cheese",
+              "keywords": [
+                "behind",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the cream cheese",
+                "behind cream cheese",
+                "the plate is behind the cream cheese"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "plate",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is in front of the plate? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "cream cheese"
+              ],
+              "primary_answer": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to plate? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is in front of the plate",
+              "keywords": [
+                "in front of",
+                "plate"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the plate",
+                "in front of plate",
+                "the cream cheese is in front of the plate"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "cream cheese",
+              "_obj_b": "plate"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of plate with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is behind the cream cheese",
+              "keywords": [
+                "behind",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the cream cheese",
+                "behind cream cheese",
+                "the plate is behind the cream cheese"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "plate",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q3_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is in front of the plate? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the plate",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "cream cheese"
+              ],
+              "primary_answer": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to wine rack? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "wine rack",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is in front of the wine rack",
+              "keywords": [
+                "in front of",
+                "wine rack"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the wine rack",
+                "in front of wine rack",
+                "the wine bottle is in front of the wine rack"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "wine bottle",
+              "_obj_b": "wine rack"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine rack with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine rack",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine rack is behind the wine bottle",
+              "keywords": [
+                "behind",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the wine bottle",
+                "behind wine bottle",
+                "the wine rack is behind the wine bottle"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "wine rack",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is in front of the wine rack? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the wine rack",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "wine bottle"
+              ],
+              "primary_answer": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to wine rack? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "wine rack",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is left of the wine rack",
+              "keywords": [
+                "left of",
+                "wine rack"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "left of the wine rack",
+                "left of wine rack",
+                "the wine bottle is left of the wine rack"
+              ],
+              "_exact_relation": "left of",
+              "_obj_a": "wine bottle",
+              "_obj_b": "wine rack"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine rack with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine rack",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine rack is right of the wine bottle",
+              "keywords": [
+                "right of",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "right of the wine bottle",
+                "right of wine bottle",
+                "the wine rack is right of the wine bottle"
+              ],
+              "_exact_relation": "right of",
+              "_obj_a": "wine rack",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q4_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is left of the wine rack? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "left of the wine rack",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "wine bottle"
+              ],
+              "primary_answer": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_world_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is in front of the wine bottle",
+              "keywords": [
+                "in front of",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the wine bottle",
+                "in front of wine bottle",
+                "the cream cheese is in front of the wine bottle"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "cream cheese",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_world_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is behind the cream cheese",
+              "keywords": [
+                "behind",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the cream cheese",
+                "behind cream cheese",
+                "the wine bottle is behind the cream cheese"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "wine bottle",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_world_type2",
+          "type": "type2_object_identification",
+          "frame": "world",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is in front of the wine bottle? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "cream cheese"
+              ],
+              "primary_answer": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_cam_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of cream cheese with respect to wine bottle? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": "wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The cream cheese is behind the wine bottle",
+              "keywords": [
+                "behind",
+                "wine bottle"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "behind the wine bottle",
+                "behind wine bottle",
+                "the cream cheese is behind the wine bottle"
+              ],
+              "_exact_relation": "behind",
+              "_obj_a": "cream cheese",
+              "_obj_b": "wine bottle"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_cam_inv_type1",
+          "type": "type1_spatial_relation",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Could you describe ONLY the position of wine bottle with respect to cream cheese? Use ONLY these position attributes: left side of, right side of, between, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": "cream cheese",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is in front of the cream cheese",
+              "keywords": [
+                "in front of",
+                "cream cheese"
+              ],
+              "keyword_match_threshold": 2,
+              "equivalent_answers": [
+                "in front of the cream cheese",
+                "in front of cream cheese",
+                "the wine bottle is in front of the cream cheese"
+              ],
+              "_exact_relation": "in front of",
+              "_obj_a": "wine bottle",
+              "_obj_b": "cream cheese"
+            }
+          }
+        },
+        {
+          "question_id": "task0_q5_cam_type2",
+          "type": "type2_object_identification",
+          "frame": "camera",
+          "filled_prompt": "The image shows a robotic manipulation scene in which the following objects are present: bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet. Which ONE of these objects is behind the wine bottle? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the wine bottle",
+          "objects_list": "bowl, cream cheese, flat stove, plate, wine bottle, wine rack, wooden cabinet",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": [
+                "cream cheese"
+              ],
+              "primary_answer": "cream cheese"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 1,
+      "task_name": "put_the_bowl_on_the_stove",
+      "first_frame_path": "/mnt/beegfs/a.cardamone7/outputs/vqa_test/frames/task01_first_frame.png",
+      "first_frame_source": "agentview_fallback",
+      "wrist_frame_path": "/mnt/beegfs/a.cardamone7/outputs/vqa_test/frames/task01_wrist_frame.png",
+      "objects_in_scene": [
+        "bowl",
+        "cream cheese",
+        "flat stove",
+        "plate",
+        "wine bottle",
+        "wine rack",
+        "wooden cabinet"
+      ],
+      "nearby_pairs_used": [
+        {
+          "a": "bowl",
+          "b": "cream cheese",
+          "dist_m": 0.1289
+        },
+        {
+          "a": "bowl",
+          "b": "wine bottle",
+          "dist_m": 0.1308
+        },
+        {
+          "a": "bowl",
+          "b": "plate",
+          "dist_m": 0.1538
+        },
+        {
+          "a": "cream cheese",
+          "b": "plate",
+          "dist_m": 0.1821
+        },
+        {
+          "a": "wine bottle",
+          "b": "wine rack",
+          "dist_m": 0.2172
+        },
+        {
+          "a": "cream cheese",
+          "b": "wine bottle",
+          "dist_m": 0.2264
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "type1_accuracy": 0.0,
+    "type1_multi_accuracy": null,
+    "type2_accuracy": 0.16666666666666666,
+    "overall_accuracy": 0.05555555555555555,
+    "type1_correct": 0,
+    "type1_total": 12,
+    "type1_multi_correct": 0,
+    "type1_multi_total": 0,
+    "type2_correct": 1,
+    "type2_total": 6,
+    "total_correct": 1,
+    "total": 18
+  }
+}

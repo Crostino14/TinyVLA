@@ -93,7 +93,7 @@ def load_llava_pythia(config=None, llava_pythia_config=None, rank0_print=print, 
             GPTNeoXModel, GPTNeoXPreTrainedModel
         kwargs = {"device_map": "cuda"}
         rank0_print("@@@@@@@Loading pretrain weights...@@@@@@@@@@")
-        assert config['model_args'].model_pretrain is not "", "load pretrain weights need set the model_pretrain in DataArguments!!!!"
+        assert config['model_args'].model_pretrain != "", "load pretrain weights need set the model_pretrain in DataArguments!!!!"
         # model = load_pretrained_model(config['model_args'].model_pretrain, config['model_args'].model_name_or_path, model_name, False, False)
         model_path = config['model_args'].model_pretrain
         model_base = config['model_args'].model_name_or_path
@@ -288,6 +288,14 @@ def load_llava_pythia(config=None, llava_pythia_config=None, rank0_print=print, 
                 if hasattr(module, 'weight'):
                     if training_args.bf16 and module.weight.dtype == torch.float32:
                         module = module.to(torch.bfloat16)
+
+    # Count parameters
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    non_trainable_params = sum(p.numel() for p in model.parameters() if not p.requires_grad)
+
+    rank0_print(f"####Trainable parameters: {trainable_params:,}####")
+    rank0_print(f"####Non-trainable parameters: {non_trainable_params:,}####")
+    rank0_print(f"####Total parameters: {trainable_params + non_trainable_params:,}####")
 
     return model, data_args
 

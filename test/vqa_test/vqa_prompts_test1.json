@@ -1,0 +1,646 @@
+{
+  "metadata": {
+    "suite": "LIBERO-GOAL",
+    "num_tasks": 10,
+    "question_types": ["type0_object_listing", "type1_spatial_relation", "type2_object_identification"],
+    "questions_per_task": "dynamic",
+    "description": "VQA prompts for VLM evaluation on LIBERO-GOAL scenes",
+    "first_frame_source_video": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+    "default_model_path": "/home/A.CARDAMONE7/checkpoints/checkpoints_saving_folder/checkpoints_saving_folder/tinyvla/post_processed_tiny_vla_llava_pythia_lora_libero_goal_no_noops_lora_r_64_processed/checkpoint-54000",
+    "default_model_base": "/home/A.CARDAMONE7/checkpoints/checkpoints_saving_folder/checkpoints_saving_folder/tinyvla/parte2_llava_pythia_libero_goal_no_noops_64/1.3B",
+    "question_template_catalog": [
+      {
+        "type": "type0_object_listing",
+        "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+        "required_fields": [
+          "question_id",
+          "ground_truth.type0_object_listing.expected_objects"
+        ]
+      },
+      {
+        "type": "type1_spatial_relation",
+        "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+        "required_fields": ["question_id", "target_object", "reference_object", "objects_list", "ground_truth.type1_spatial_relation.reference_answer", "ground_truth.type1_spatial_relation.keywords", "ground_truth.type1_spatial_relation.keyword_match_threshold"]
+      },
+      {
+        "type": "type2_object_identification",
+        "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+        "required_fields": ["question_id", "spatial_description", "objects_list", "ground_truth.type2_object_identification.valid_answers", "ground_truth.type2_object_identification.primary_answer"]
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "task_id": 1,
+      "task_name": "Put the bowl on the stove",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task1_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task1_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["wine bottle"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl in front of the wine bottle",
+              "keywords": ["in front of", "wine bottle"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task1_q3_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located behind the plate",
+              "keywords": ["behind", "plate"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task1_q1_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "between the wine bottle and the cream cheese",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["bowl", "grey bowl", "white bowl"],
+              "primary_answer": "bowl"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 2,
+      "task_name": "Put the wine bottle on the top of the cabinet",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task2_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task2_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": ["bowl"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is positioned behind the bowl",
+              "keywords": ["behind", "bowl"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task2_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": ["bowl"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is in front of the wine rack",
+              "keywords": ["in front of", "wine rack"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task2_q1_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the bowl",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["wine bottle"],
+              "primary_answer": "wine bottle"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 3,
+      "task_name": "Open the top layer of the drawer and put the bowl inside",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task3_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task3_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["wine bottle"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is positioned in front of the wine bottle",
+              "keywords": ["in front of", "wine bottle"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task3_q3_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is positioned behind the plate",
+              "keywords": ["behind", "plate"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task3_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "the top drawer of the wooden cabinet",
+          "reference_object": ["wooden cabinet"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The top drawer of the wooden cabinet is positioned above the middle and bottom drawers of the cabinet",
+              "keywords": ["top", "above", "middle", "bottom", "cabinet"],
+              "keyword_match_threshold": 3
+            }
+          }
+        },
+        {
+          "question_id": "task3_q3_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "the top layer of the wooden cabinet",
+          "reference_object": ["wooden cabinet"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The top layer of the wooden cabinet is positioned above the middle and bottom layers of the cabinet",
+              "keywords": ["top", "above", "middle", "bottom", "cabinet"],
+              "keyword_match_threshold": 3
+            }
+          }
+        },
+        {
+          "question_id": "task3_q1_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "between the wine bottle and the plate",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["bowl", "grey bowl", "white bowl"],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task3_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "above the middle drawer of the wooden cabinet",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["top layer of the wooden cabinet", "top drawer of the wooden cabinet", "top part of the wooden cabinet"],
+              "primary_answer": "top layer of the wooden cabinet"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 4,
+      "task_name": "Put the bowl on the top of the cabinet",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task4_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task4_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["cream cheese", "wine bottle", "plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located in front of the wine bottle",
+              "keywords": ["in front of", "wine bottle"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task4_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["cream cheese", "wine bottle", "plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located behind the plate",
+              "keywords": ["behind", "plate"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task4_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "between the wine bottle and the cream cheese",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["bowl", "grey bowl", "white bowl"],
+              "primary_answer": "bowl"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 5,
+      "task_name": "Push the plate to the front of the stove",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task5_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task5_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": ["wooden cabinet", "bowl"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is located in front of the wooden cabinet",
+              "keywords": ["front", "wooden cabinet"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task5_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "plate",
+          "reference_object": ["wooden cabinet", "bowl"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The plate is located in front of the bowl",
+              "keywords": ["front", "bowl"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task5_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the wooden cabinet",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["plate"],
+              "primary_answer": "plate"
+            }
+          }
+        },
+        {
+          "question_id": "task5_q3_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the wooden cabinet and in front of the bowl",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["plate"],
+              "primary_answer": "plate"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 6,
+      "task_name": "Put the cream cheese on the bowl",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task6_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task6_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "cream cheese",
+          "reference_object": ["flat stove"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "in front of the flat stove",
+              "keywords": ["front", "stove", "flat stove"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task6_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "in front of the flat stove",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["cream cheese", "blue box", "blue rectangular box"],
+              "primary_answer": "cream cheese"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 7,
+      "task_name": "Turn on the stove",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task7_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task7_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "flat stove",
+          "reference_object": ["cream cheese"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "behind the cream cheese",
+              "keywords": ["behind", "cream cheese"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task7_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the cream cheese",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["flat stove"],
+              "primary_answer": "flat stove"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 8,
+      "task_name": "Put the bowl on the plate",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task8_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task8_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located behind the plate",
+              "keywords": ["behind", "plate"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task8_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["wine bottle", "plate"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located between the wine bottle and the plate",
+              "keywords": ["between", "wine bottle", "plate"],
+              "keyword_match_threshold": 3
+            }
+          }
+        },
+        {
+          "question_id": "task8_q3_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "bowl",
+          "reference_object": ["wine bottle", "plate", "cream cheese"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The bowl is located between the wine bottle and the cream cheese",
+              "keywords": ["between", "wine bottle", "cream cheese"],
+              "keyword_match_threshold": 3
+            }
+          }
+        },
+        {
+          "question_id": "task8_q1_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "between the wine bottle and the cream cheese",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["bowl", "grey bowl", "white bowl"],
+              "primary_answer": "bowl"
+            }
+          }
+        },
+        {
+          "question_id": "task8_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "between the wine bottle and the plate",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["bowl", "grey bowl", "white bowl"],
+              "primary_answer": "bowl"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "task_id": 9,
+      "task_name": "Put the wine bottle on the rack",
+      "first_frame_path": "/home/A.CARDAMONE7/outputs/rollouts/libero_goal/syntactic_variation/openvla-oft/openvla-oft-50000/default/run_libero_goal_eval_seed_0/2026_02_03-15_02_39--episode=1--success=True--task=open_the_middle_layer_of_the_drawer.mp4",
+      "objects_in_scene": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+      "questions": [
+        {
+          "question_id": "task9_q0_type0",
+          "type": "type0_object_listing",
+          "template": "LIST ONLY the objects that are present in the image provided and DON'T DESCRIBE THEIR POSITION OR ANYTHING ELSE!",
+          "ground_truth": {
+            "type0_object_listing": {
+              "expected_objects": ["wooden cabinet", "flat stove", "wine rack", "bowl", "plate", "wine bottle", "cream cheese"],
+              "recall_threshold": 0.5
+            }
+          }
+        },
+        {
+          "question_id": "task9_q1_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": ["bowl"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is positioned behind the bowl",
+              "keywords": ["behind", "bowl"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task9_q2_type1",
+          "type": "type1_spatial_relation",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Could you describe ONLY the position of {target_object} with respect to {reference_object}? Use ONLY these position attributes: left side of, right side of, behind, in front of, next to.",
+          "target_object": "wine bottle",
+          "reference_object": ["bowl", "wine rack"],
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type1_spatial_relation": {
+              "reference_answer": "The wine bottle is positioned behind the bowl and in front of the wine rack",
+              "keywords": ["behind", "bowl", "wine rack", "in front"],
+              "keyword_match_threshold": 2
+            }
+          }
+        },
+        {
+          "question_id": "task9_q2_type2",
+          "type": "type2_object_identification",
+          "template": "The image shows a robotic manipulation scene in which the following objects are present: {objects_list}. Which ONE of these objects is located {spatial_description}? Answer with ONLY the object name from the list above, nothing else.",
+          "spatial_description": "behind the bowl",
+          "objects_list": "wooden cabinet, flat stove, wine rack, bowl, plate, wine bottle, cream cheese",
+          "ground_truth": {
+            "type2_object_identification": {
+              "valid_answers": ["wine bottle"],
+              "primary_answer": "wine bottle"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

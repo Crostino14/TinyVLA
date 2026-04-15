@@ -1,0 +1,13 @@
+{
+    "dataset_dir": "/home/rsofnc000/Multi-Task-LFD-Framework/repo/open_x_embodiment/datasets/libero/libero_object_no_noops",
+    "name": "libero_object_no_noops",
+    "cam_height": 256,
+    "cam_width": 256,
+    "state_dim": 8,
+    "action_dim": 10,
+    "cam_keys": [
+        "image",
+        "wrist_image"
+    ],
+    "command_key": ""
+}

@@ -36,10 +36,15 @@ class LlavaPythiaForCausalLM(GPTNeoXPreTrainedModel, LlavaMetaForCausalLM):
         super(GPTNeoXPreTrainedModel, self).__init__(config)
         self.gpt_neox = LLavaPythiaModel(config)
 
-        self.head_type = config.action_head_type
-        self.visual_concat = config.concat
-        self.action_dim = config.action_dim
-        if config.action_head_type == 'act':
+        # Base Llava-Pythia checkpoints may not define policy-specific fields.
+        self.head_type = getattr(config, 'action_head_type', 'fc')
+        self.visual_concat = getattr(config, 'concat', 'None')
+        self.action_dim = getattr(config, 'action_dim', 0)
+        if self.head_type == 'fc':
+            # Text-generation head used by base Llava-Pythia checkpoints.
+            self.embed_out = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
+
+        elif self.head_type == 'act':
             self.embed_out = build_ACT_head(config.act['act'])
             middle_dim = int(max(config.hidden_size, config.act['act']['hidden_dim']) / 2)
             self.proj_to_action = nn.Sequential(
@@ -50,7 +55,7 @@ class LlavaPythiaForCausalLM(GPTNeoXPreTrainedModel, LlavaMetaForCausalLM):
                 nn.LayerNorm(config.act['act']['hidden_dim']),
             )
 
-        elif config.action_head_type == 'droid_diffusion':
+        elif self.head_type == 'droid_diffusion':
             from diffusers.schedulers.scheduling_ddim import DDIMScheduler
             from policy_heads.models import ConditionalUnet1D
             self.proj_to_action = nn.Identity()
@@ -100,6 +105,8 @@ class LlavaPythiaForCausalLM(GPTNeoXPreTrainedModel, LlavaMetaForCausalLM):
         Returns:
             Fused image features.
         """
+        if visual_concat is None:
+            return self.encode_images(images)
         if "channel_cat" not in visual_concat:
             image_features = self.encode_images(images)
         if images_top is not None:
@@ -236,7 +243,14 @@ class LlavaPythiaForCausalLM(GPTNeoXPreTrainedModel, LlavaMetaForCausalLM):
                 - loss (torch.Tensor or None): The computed loss if applicable.
                 - logits (torch.Tensor): The predicted output logits.
         """
-        logits = self.embed_out(input_feature=hidden_states, state_tensor=states)
+        # Support both plain linear LM heads and custom heads with kwargs.
+        if isinstance(self.embed_out, nn.Linear):
+            logits = self.embed_out(hidden_states)
+        else:
+            try:
+                logits = self.embed_out(input_feature=hidden_states, state_tensor=states)
+            except TypeError:
+                logits = self.embed_out(hidden_states)
 
         loss = None
         if labels is not None and actions is None: # training time
@@ -374,7 +388,7 @@ class LlavaPythiaForCausalLM(GPTNeoXPreTrainedModel, LlavaMetaForCausalLM):
 
             for k in self.noise_scheduler.timesteps:
                 # predict noise
-                noise_pred = self.embed_out(naction, k, global_cond=hidden_states, states=states)
+                noise_pred = self.embed_out(naction, k.to(dtype=naction.dtype), global_cond=hidden_states, states=states)
 
                 # inverse diffusion step (remove noise)
                 naction = self.noise_scheduler.step(

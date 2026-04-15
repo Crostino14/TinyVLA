@@ -1,7 +1,7 @@
 
 ##################### Setting of training data #####################################
 
-# DATA_DIR = '/path/to/your/data_dir'
+DATA_DIR = '/home/rsofnc000/Multi-Task-LFD-Framework/repo/TinyVLA/dataset'
 
 TASK_CONFIGS = {
     'example_task_config': { # for local debug
@@ -11,6 +11,52 @@ TASK_CONFIGS = {
         'episode_len': 1000,  # 1000,
         'camera_names': ['left', 'right', 'wrist'] # corresponding to image keys saved in h5py files
     },
+    'libero_object_no_noops':{
+        'dataset_dir': DATA_DIR + '/libero_object_no_noops_succ_t0001_s-0-0', # define the path of the dataset
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['image', 'wrist_image'] # define the camera names which are used as the key when reading data
+    },
+    'libero_goal_no_noops':{
+        'dataset_dir': '/home/A.CARDAMONE7/datasets/TinyVLA_datasets/h5py_libero_goal_no_noops/libero_goal_no_noops_succ_t0001_s-0-0', # define the path of the dataset
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['image', 'wrist_image'] # define the camera names which are used as the key when reading data
+    },
+    'ur5e_pick_place_delta_all':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_delta_all_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_only_0_4_8_12':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_only_0_4_8_12_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_removed_spawn_regions':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_removed_spawn_regions_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_delta_removed_0_5_10_15':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_delta_removed_0_5_10_15_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_rm_central_spawn':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_rm_central_spawn_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_rm_one_spawn':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_rm_one_spawn_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    },
+    'ur5e_pick_place_rm_12_13_14_15':{
+        'dataset_dir': DATA_DIR + '/ur5e_pick_place_rm_12_13_14_15_succ_t0001_s-0-0', 
+        'episode_len': 1000, #max length of the episode,
+        'camera_names': ['camera_front_image', 'camera_gripper_image']
+    }
+    
 }
 ####################################################################################
 

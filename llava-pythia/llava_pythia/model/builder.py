@@ -6,7 +6,21 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAn
     GPTNeoXModel, GPTNeoXPreTrainedModel
 import torch
 from llava_pythia.model import *
+from llava_pythia.model.language_model.pythia.llava_pythia import LlavaPythiaForCausalLM, LlavaPythiaConfig
 from llava_pythia.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+
+
+def _load_tokenizer_with_fallback(path, prefer_fast):
+    """Load tokenizer and gracefully fallback between fast/slow variants."""
+    try:
+        return AutoTokenizer.from_pretrained(path, use_fast=prefer_fast)
+    except Exception as e:
+        fallback_fast = not prefer_fast
+        warnings.warn(
+            f"Tokenizer load failed for use_fast={prefer_fast} at '{path}': {e}. "
+            f"Retrying with use_fast={fallback_fast}."
+        )
+        return AutoTokenizer.from_pretrained(path, use_fast=fallback_fast)
 
 
 def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, load_4bit=False, device_map="cuda", device="cuda"):
@@ -40,9 +54,19 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             bnb_4bit_quant_type='nf4'
         )
     else:
-        kwargs['torch_dtype'] = torch.float16
+        kwargs['torch_dtype'] = torch.float
 
-    if 'pythia' in model_name.lower():
+    is_pythia = 'pythia' in model_name.lower()
+    if not is_pythia:
+        # Some checkpoints are stored under generic folder names (e.g. "1.3B").
+        # Detect Llava-Pythia from config instead of relying only on path naming.
+        try:
+            _cfg_probe = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+            is_pythia = getattr(_cfg_probe, "model_type", "") == "llava_pythia"
+        except Exception:
+            is_pythia = False
+
+    if is_pythia:
         # Load LLaVA-Phi model
         if 'lora' in model_name.lower() and model_base is None:
             warnings.warn('There is `lora` in model name but no `model_base` is provided. If you are loading a LoRA model, please provide the `model_base` argument.')
@@ -52,9 +76,12 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             root_path = '/'.join(path)
             lora_cfg_pretrained = AutoConfig.from_pretrained(root_path)
             config = lora_cfg_pretrained
-            tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=True) # default use_fast=False
+            tokenizer = _load_tokenizer_with_fallback(model_base, prefer_fast=True)
             print('Loading LLaVA-Pythia from base model...')
-            model = LlavaPythiaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
+            model = LlavaPythiaForCausalLM.from_pretrained(model_base, 
+                                                           low_cpu_mem_usage=True, config=lora_cfg_pretrained, 
+                                                           force_download=True,
+                                                           **kwargs)
             
             # token_num, tokem_dim = model.embed_out.out_features, model.embed_out.in_features
             # if model.embed_out.weight.shape[0] != token_num:
@@ -62,8 +89,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             #     model.model.embed_tokens.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
             
             print('Loading additional LLaVA-Pythia weights...')
-            if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin')):
-                non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin'), map_location='cpu')
+            if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin', 'pytorch_model.bin')):
+                non_lora_trainables = torch.load(os.path.join(model_path, 'non_lora_trainables.bin', 'pytorch_model.bin'), map_location='cpu')
             else:
                 # this is probably from HF Hub
                 from huggingface_hub import hf_hub_download
@@ -97,8 +124,9 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         elif model_base is not None:
             # this may be mm projector only
             print('Loading LLaVA-Pythia from base model...')
-            tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
+            tokenizer = _load_tokenizer_with_fallback(model_base, prefer_fast=False)
             cfg_pretrained = AutoConfig.from_pretrained(model_path)
+            config = cfg_pretrained
             model = LlavaPythiaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=cfg_pretrained, **kwargs)
 
             mm_projector_weights = torch.load(os.path.join(model_path, 'mm_projector.bin'), map_location='cpu')
@@ -107,7 +135,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         else:
             print("load llaVA-Pythia MLLM!!!")
             config = LlavaPythiaConfig.from_pretrained(model_path, trust_remote_code=True)
-            tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
+            tokenizer = _load_tokenizer_with_fallback(model_path, prefer_fast=True)
             model = LlavaPythiaForCausalLM.from_pretrained(
                 model_path,
                 config=config,
@@ -118,8 +146,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         if model_base is not None:
             # PEFT model
             from peft import PeftModel
-            tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
-            model = AutoModelForCausalLM.from_pretrained(model_base, torch_dtype=torch.float16, low_cpu_mem_usage=True, device_map="auto")
+            tokenizer = _load_tokenizer_with_fallback(model_base, prefer_fast=True)
+            model = AutoModelForCausalLM.from_pretrained(model_base, torch_dtype=torch.float16, low_cpu_mem_usage=True, device_map="auto", trust_remote_code=True)
             print(f"Loading LoRA weights from {model_path}")
             model = PeftModel.from_pretrained(model, model_path)
             print(f"Merging weights")
@@ -127,7 +155,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             print('Convert to FP16...')
             model.to(torch.float16)
         else:
-            tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+            tokenizer = _load_tokenizer_with_fallback(model_path, prefer_fast=False)
             model = AutoModelForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
     if "clip" in config.vision_config["vision_tower"]["vision_model_name_or_path"]:
         image_processor = CLIPImageProcessor.from_pretrained(model_path)
@@ -137,7 +165,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         return NotImplementedError
     # image_processor = CLIPImageProcessor.from_pretrained(model_path)
 
-    if 'pythia' in model_name.lower():
+    if is_pythia:
         mm_use_im_start_end = getattr(model.config, "mm_use_im_start_end", False)
         mm_use_im_patch_token = getattr(model.config, "mm_use_im_patch_token", True)
 
