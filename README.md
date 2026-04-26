@@ -13,6 +13,25 @@ for Robotic Manipulation</h1>
 * **`Feb. 9th, 2025`**: 🔥🔥🔥**TinyVLA** is accepted by IEEE Robotics and Automation Letters (RA-L) 2025!
 * **`Nov. 19th, 2024`**: **TinyVLA** is out! **Paper** can be found [here](https://arxiv.org/abs/2409.12514). The **project web** can be found [here](https://tiny-vla.github.io/).
 
+## Changes from the Original Repository
+
+> ⚠️ **This is a fork of the original [TinyVLA](https://github.com/liyaxuanliyaxuan/TinyVLA) repository.**
+>
+> It has been used as part of the following research project:
+>
+> **[Evaluating Generalization of State-of-the-Art Multi-Task Language-Conditioned Imitation Learning Systems](https://github.com/Crostino14/Evaluating-Generalization-of-Sota-Multi-Task-Language-Conditioned-Imitation-Learning-Systems)**
+>
+> All credits for the original framework go to the TinyVLA authors. The modifications introduced in this fork are described below.
+
+This fork extends the original TinyVLA codebase with scripts and configurations used to evaluate the model on the zero-shot generalization benchmark described in the project above. Specifically, the following additions were made:
+
+- **LIBERO-Goal evaluation scripts** (`test/libero_test/`): adapted inference pipeline to load and evaluate custom BDDL task variants (syntactic and task-level generalization levels) defined in the [LIBERO fork](https://github.com/Crostino14/LIBERO).
+- **Task composition evaluation script** (`run_libero_eval_task_comp.sh`): dedicated SLURM launcher for running Task-Level generalization evaluations (Cross-Object Skill Transfer and Novel Task Composition).
+- **Embedding extraction scripts** (`test/libero_test/embeddings_test/`): tooling to extract language instruction embeddings from the LLaVA-Pythia backbone and analyze cosine similarity, Euclidean distance, and normalized Levenshtein distance across instruction variants.
+- **Conda environment files** (`test/env_requirements/`): reproducible environment specifications for LIBERO evaluation (`tinyvla_libero.yml`), training (`tinyvla.yml`), and embedding analysis.
+
+No changes were made to the core model architecture, training logic, or pretrained weights.
+
 ## Contents
 - [📰 News](#-news)
 - [Contents](#contents)
